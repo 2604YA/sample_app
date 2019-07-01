@@ -1,4 +1,8 @@
 module SessionsHelper
+
+  # user はcurrent_user current_userメソッド内で定義されている
+
+
   # 渡されたユーザーでログインする
   def log_in(user)
     session[:user_id] = user.id

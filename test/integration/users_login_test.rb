@@ -44,6 +44,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   test "login with remembering" do
     log_in_as(@user, remember_me: '1')
+    # cookies内のremember_tokenと@userのremember_tokenが等しいか否か
     assert_equal cookies['remember_token'], assigns(:user).remember_token
   end
 
