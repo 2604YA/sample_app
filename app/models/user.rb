@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  #仮想の属性 :remember_digestにあとで代入する
+  has_many :microposts, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
@@ -72,6 +72,10 @@ class User < ApplicationRecord
     #2 hours ago より前に送られてるか？=２時間以上経過している
   end
 
+  def feed
+    #セキュリティ ? でエスケープ
+    Micropost.where("user_id = ?",id)
+  end
 
   private
 
