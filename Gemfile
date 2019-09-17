@@ -17,6 +17,7 @@ gem 'turbolinks',   '5.0.1'
 gem 'jbuilder',     '2.7.0'
 gem 'semantic-ui-sass'
 gem 'geocoder'
+gem "nokogiri", ">= 1.10.4"
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
