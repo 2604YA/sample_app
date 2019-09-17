@@ -37,7 +37,7 @@ function codeAddress(){
     if (status == 'OK') {
 　　　　　　　　　　　　// map.setCenterで地図が移動
       map.setCenter(results[0].geometry.location);
-      map.setZoom(12);
+      map.setZoom(20);
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
     }
@@ -94,4 +94,4 @@ function getCoordinates(){
 
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATitBmMp_5F7lWt2_YrSUbC-AdDq-MaD8&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOURKEY&callback=initMap" async defer></script>
