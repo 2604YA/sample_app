@@ -1,12 +1,19 @@
 <%= form_for(@micropost) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
-    <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+  <div class="col-md-4">
+    <div class="field">
+      <%= f.label :content %>
+      <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+    </div>
+    <span class="picture">
+      <%= f.label :picture %>
+      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+    </span>
+  </div>
+  <div class="col-md-8">
+    <%= render 'shared/map' %>
   </div>
   <%= f.submit "Post", class: "btn btn-primary" %>
-  <span class="picture">
-    <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-  </span>
 <% end %>
 
   <script type="text/javascript">

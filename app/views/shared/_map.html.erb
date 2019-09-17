@@ -1,0 +1,97 @@
+<input id="address" type="textbox" value="Sydney, NSW">
+
+<!-- buttonをクリックしたらcodeAddressを実行　-->
+<input type="button" value="Encode" onclick="codeAddress()">
+<div id='map'>
+</div>
+<input type="button" value="Get" onclick="getCoordinates()">
+
+<script>
+/*
+mapを関数の外で定義(codeAddressでも使うため)
+geocoderを用意
+*/
+
+let map
+let geocoder
+var marker
+var markers = [];
+
+
+function initMap(){
+  // geocoderを初期化
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+  center: {lat: -34.397, lng: 150.644},
+  zoom: 8
+  });
+}
+
+function codeAddress(){
+  // 入力を取得
+  let inputAddress = document.getElementById('address').value;
+
+  // geocodingしたあとmapを移動
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+　　　　　　　　　　　　// map.setCenterで地図が移動
+      map.setCenter(results[0].geometry.location);
+      map.setZoom(12);
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+
+//　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+
+    google.maps.event.addListener(map, 'click', function(event) {
+     placeMarker(event.latLng);
+    });
+
+    function placeMarker(location) {
+      if (markers.length == 0) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            draggable: true
+        });
+        markers.push(marker);
+        var pos = marker.getPosition();
+        var lat = pos.lat();
+        var lng = pos.lng();
+        console.log(lat,lng);
+      } else {
+        markers[0].setMap(null),
+        markers = []
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            draggable: true
+        });
+        markers.push(marker);
+        var pos = marker.getPosition();
+        var lat = pos.lat();
+        var lng = pos.lng();
+        console.log(lat,lng);
+      }
+    }
+    /* dragend したところの位置情報を取得したい！ */
+}
+
+function getCoordinates(){
+  var pos = markers[0].getPosition();
+  var lat = pos.lat();
+  var lng = pos.lng();
+  console.log(lat,lng);
+}
+
+
+
+
+
+
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATitBmMp_5F7lWt2_YrSUbC-AdDq-MaD8&callback=initMap" async defer></script>
